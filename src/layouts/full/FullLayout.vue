@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
-import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
-import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
-import Customizer from './customizer/CustomizerPanel.vue';
-import FooterPanel from './footer/FooterPanel.vue';
-import { useCustomizerStore } from '../../stores/customizer';
+import { RouterView } from "vue-router";
+import VerticalSidebarVue from "./vertical-sidebar/VerticalSidebar.vue";
+import VerticalHeaderVue from "./vertical-header/VerticalHeader.vue";
+import Customizer from "./customizer/CustomizerPanel.vue";
+import FooterPanel from "./footer/FooterPanel.vue";
+import { useCustomizerStore } from "../../stores/customizer";
 const customizer = useCustomizerStore();
 </script>
 
@@ -12,7 +12,11 @@ const customizer = useCustomizerStore();
   <v-locale-provider>
     <v-app
       theme="PurpleTheme"
-      :class="[customizer.fontTheme, customizer.mini_sidebar ? 'mini-sidebar' : '', customizer.inputBg ? 'inputWithbg' : '']"
+      :class="[
+        customizer.fontTheme,
+        customizer.mini_sidebar ? 'mini-sidebar' : '',
+        customizer.inputBg ? 'inputWithbg' : '',
+      ]"
     >
       <Customizer />
       <VerticalSidebarVue />
@@ -28,7 +32,9 @@ const customizer = useCustomizerStore();
               icon
               variant="flat"
               color="secondary"
-              @click.stop="customizer.SET_CUSTOMIZER_DRAWER(!customizer.Customizer_drawer)"
+              @click.stop="
+                customizer.SET_CUSTOMIZER_DRAWER(!customizer.Customizer_drawer)
+              "
             >
               <SettingsIcon class="icon" />
             </v-btn>

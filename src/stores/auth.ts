@@ -15,14 +15,27 @@ export const useAuthStore = defineStore({
   }),
   actions: {
     async login(username: string, password: string) {
-      const user = await fetchWrapper.post(`${baseUrl}/authenticate`, { username, password });
+      try {
+      const user = await fetchWrapper.post(`${baseUrl}/authenticate.php`, { username, password });
+     
+      if(user.status == 200)
+      {
 
-      // update pinia state
-      this.user = user;
-      // store user details and jwt in local storage to keep user logged in between page refreshes
-      localStorage.setItem('user', JSON.stringify(user));
-      // redirect to previous url or default to home page
-      router.push(this.returnUrl || '/dashboard/default');
+          this.user = user.data;
+    
+          // store user details and jwt in local storage to keep user logged in between page refreshes
+          localStorage.setItem('user', JSON.stringify(user));
+          // redirect to previous url or default to home page
+          router.push(this.returnUrl || '/dashboard/default');
+      }else{
+        throw new Error(user.status || "Login failed");
+      }
+    }catch (error) {
+      // Re-throw error to be caught by the caller
+      throw error;
+    }
+      
+     
     },
     logout() {
       this.user = null;

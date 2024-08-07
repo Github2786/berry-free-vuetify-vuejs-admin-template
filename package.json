@@ -1,8 +1,8 @@
 {
-  "name": "berry-free-vuetify-vuejs-admin-template",
+  "name": "lmcrm",
   "version": "1.2.0",
   "private": true,
-  "author": "CodedThemes",
+  "author": "Ashik Sam A",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -25,6 +25,7 @@
     "chance": "1.1.11",
     "date-fns": "3.6.0",
     "lodash": "4.17.21",
+    "papaparse": "^5.4.1",
     "pinia": "2.1.7",
     "remixicon": "4.2.0",
     "vee-validate": "4.12.8",
@@ -37,6 +38,7 @@
     "vue3-print-nb": "0.1.4",
     "vuetify": "3.6.5",
     "webpack-plugin-vuetify": "3.0.3",
+    "xlsx": "^0.18.5",
     "yup": "1.4.0"
   },
   "devDependencies": {

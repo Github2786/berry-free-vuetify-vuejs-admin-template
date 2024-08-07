@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { shallowRef } from 'vue';
-import { useCustomizerStore } from '../../../stores/customizer';
-import sidebarItems from './sidebarItem';
+import { shallowRef } from "vue";
+import { useCustomizerStore } from "../../../stores/customizer";
+import sidebarItems from "./sidebarItem";
 
-import NavGroup from './NavGroup/NavGroup.vue';
-import NavItem from './NavItem/NavItem.vue';
-import NavCollapse from './NavCollapse/NavCollapse.vue';
-import ExtraBox from './extrabox/ExtraBox.vue';
-import Logo from '../logo/LogoMain.vue';
+import NavGroup from "./NavGroup/NavGroup.vue";
+import NavItem from "./NavItem/NavItem.vue";
+import NavCollapse from "./NavCollapse/NavCollapse.vue";
+
+import Logo from "../logo/LogoMain.vue";
 
 const customizer = useCustomizerStore();
 const sidebarMenu = shallowRef(sidebarItems);
@@ -28,7 +28,8 @@ const sidebarMenu = shallowRef(sidebarItems);
     <!---Logo part -->
 
     <div class="pa-5">
-      <Logo />
+      <!-- <Logo /> -->
+      <h3>LandMark LM</h3>
     </div>
     <!-- ---------------------------------------------- -->
     <!---Navigation -->
@@ -42,18 +43,21 @@ const sidebarMenu = shallowRef(sidebarItems);
           <!---Item Divider -->
           <v-divider class="my-3" v-else-if="item.divider" />
           <!---If Has Child -->
-          <NavCollapse class="leftPadding" :item="item" :level="0" v-else-if="item.children" />
+          <NavCollapse
+            class="leftPadding"
+            :item="item"
+            :level="0"
+            v-else-if="item.children"
+          />
           <!---Single Item-->
           <NavItem :item="item" v-else class="leftPadding" />
           <!---End Single Item-->
         </template>
       </v-list>
-      <div class="pa-4">
-        <ExtraBox />
-      </div>
-      <div class="pa-4 text-center">
+
+      <!-- <div class="pa-4 text-center">
         <v-chip color="inputBorder" size="small"> v1.2.0 </v-chip>
-      </div>
+      </div> -->
     </perfect-scrollbar>
   </v-navigation-drawer>
 </template>
