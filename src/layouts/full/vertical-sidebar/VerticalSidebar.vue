@@ -29,7 +29,7 @@ const sidebarMenu = shallowRef(sidebarItems);
 
     <div class="pa-5">
       <!-- <Logo /> -->
-      <h3>LandMark LM</h3>
+      <h3>LM</h3>
     </div>
     <!-- ---------------------------------------------- -->
     <!---Navigation -->

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, defineProps, defineEmits, watch, computed } from "vue";
-import { SearchIcon } from "vue-tabler-icons";
+import { SearchIcon, UserPlusIcon } from "vue-tabler-icons";
 import { toPascalCase, getStatusColor } from "@/common/general.js";
 const emits = defineEmits([
   "showLeadForm",
@@ -8,6 +8,9 @@ const emits = defineEmits([
   "importMethod",
   "exportMethod",
   "tablerefresh",
+  "editItem",
+  "deleteItem",
+  "assignJob",
 ]);
 const props = defineProps({
   title: String,
@@ -31,9 +34,10 @@ const props = defineProps({
 
 const selected = ref([]);
 const isloading = ref(false);
-const search = ref(null);
+const search = ref("");
 const filteredData = computed(() => {
   if (!search.value) return props.data;
+
   return props.data.filter((item) =>
     Object.values(item).some((value) =>
       String(value).toLowerCase().includes(search.value.toLowerCase())
@@ -64,16 +68,27 @@ const exportTrigger = () => {
 };
 
 const onShowLeadForm = () => {
-  console.log("aaaa");
   emits("showLeadForm", "Add New");
 };
 
 const refresh = () => {
   emits("tablerefresh");
 };
+const editItem = (item: DataItem) => emits("editItem", item);
+const assignJob = () => {
+  if (selected.value.length > 0) {
+    emits("assignJob");
+  } else {
+    alert("please select a lead then proceed !");
+  }
+};
+
+const deleteItem = (item: DataItem) => emits("deleteItem", item);
+
 watch(
   () => selected.value,
   (newValue, oldValue) => {
+    console.log(selected.value);
     emits("isSelectedData", newValue);
   }
 );
@@ -90,6 +105,15 @@ watch(
       </v-btn>
       <v-spacer />
       <v-spacer />
+      <v-btn
+        size="small"
+        class="mr-2 ml-2"
+        color="warning"
+        title="Assign Job "
+        @click="assignJob()"
+      >
+        <UserPlusIcon class="icon" size="15" />
+      </v-btn>
       <v-btn size="small" color="success" title="Add New" @click="onShowLeadForm()">
         <PlusIcon class="icon" size="15" />
       </v-btn>
@@ -125,7 +149,7 @@ watch(
         <div class="d-flex flex-column">
           <span>{{ item.name }}</span>
           <v-chip size="x-small" color="primary">
-            {{ item.date || formatedDate() }}
+            {{ item.date?.split(" ")[0] || formatedDate() }}
           </v-chip>
         </div>
       </template>
@@ -135,10 +159,21 @@ watch(
         </v-chip>
       </template>
       <template #item.actions="{ item }">
-        <v-btn size="x-small" color="success" @click="editItem(item)">
+        <v-btn
+          :disabled="item.status != `pending`"
+          size="x-small"
+          color="success"
+          @click="editItem(item)"
+        >
           <BallpenIcon class="icon" size="15" />
         </v-btn>
-        <v-btn size="x-small" color="error" @click="deleteItem(item)" class="ml-2">
+        <v-btn
+          :disabled="item.status != `pending`"
+          size="x-small"
+          color="error"
+          @click="deleteItem(item)"
+          class="ml-2"
+        >
           <TrashIcon class="icon" size="15" />
         </v-btn>
       </template>

@@ -29,11 +29,11 @@ export interface menu {
 
 const sidebarItem: menu[] = [
   { header: 'Menu' },
-  {
-    title: 'Dashboard',
-    icon: DashboardIcon,
-    to: '/dashboard/default'
-  },
+  // {
+  //   title: 'Dashboard',
+  //   icon: DashboardIcon,
+  //   to: '/dashboard/default'
+  // },
   {
     title: 'Leads',
     icon: BrandChromeIcon,
